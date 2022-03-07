@@ -77,7 +77,6 @@ function InfoIcon(props) {
 
 
 class MySnackbar extends Component {
-
   state = {
     open: this.props.open,
   };
@@ -95,7 +94,6 @@ class MySnackbar extends Component {
   };
 
   render() {
-
     const { type, message } = this.props
 
     let icon = <SuccessIcon color={colors.blue} />

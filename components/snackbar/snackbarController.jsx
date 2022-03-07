@@ -12,9 +12,7 @@ import stores from "../../stores";
 const emitter = stores.emitter
 
 const styles = theme => ({
-  root: {
-
-  },
+  root: {},
 });
 
 class SnackbarController extends Component {
@@ -68,12 +66,10 @@ class SnackbarController extends Component {
       open
     } = this.state
 
-    if(open) {
+    if (open) {
       return <Snackbar type={ snackbarType } message={ snackbarMessage } open={ true } />
-    } else {
-      return <div></div>
     }
-
+    return <div></div>
   };
 }
 

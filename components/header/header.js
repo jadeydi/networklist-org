@@ -14,12 +14,10 @@ import {
   ACCOUNT_CONFIGURED
 } from '../../stores/constants'
 
-// import Unlock from '../unlock'
-
 import stores from '../../stores'
 import { formatAddress, getProvider } from '../../utils'
 
-import classes from './header.module.css'
+import classes from './header.module.scss'
 
 const StyledSwitch = withStyles((theme) => ({
   root: {

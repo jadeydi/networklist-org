@@ -5,10 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import SnackbarController from '../components/snackbar'
 
 import stores from '../stores/index.js'
-
-import {
-  CONFIGURE,
-} from '../stores/constants'
+import { CONFIGURE } from '../stores/constants'
 
 import '../styles/globals.scss'
 
@@ -38,7 +35,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={ themeConfig }>
       <CssBaseline />
       <Component {...pageProps} changeTheme={ changeTheme } />
-        <SnackbarController />
+      <SnackbarController />
     </ThemeProvider>
   )
 }

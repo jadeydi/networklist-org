@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Paper, Grid, Button, Tooltip } from '@material-ui/core'
-import Skeleton from '@material-ui/lab/Skeleton';
-import { useRouter } from 'next/router'
+import { Typography, Paper, Button, Tooltip } from '@material-ui/core'
 import Web3 from 'web3';
 
-import classes from './chain.module.css'
+import classes from './chain.module.scss'
 
-import stores from '../../stores/index.js'
 import { getProvider } from '../../utils'
-
+import stores from '../../stores/index.js'
 import {
   ERROR,
-  CONNECT_WALLET,
   TRY_CONNECT_WALLET,
   ACCOUNT_CONFIGURED
 } from '../../stores/constants'
 
 export default function Chain({ chain }) {
-  const router = useRouter()
 
   const [ account, setAccount ] = useState(null)
 
