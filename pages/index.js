@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import { withTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import path from 'path'
 import {
@@ -23,7 +23,7 @@ import ListIcon from '@material-ui/icons/List';
 import AddIcon from '@material-ui/icons/Add';
 import useSWR from 'swr'
 
-import classes from './index.module.css'
+import classes from './index.module.scss'
 
 const searchTheme = createMuiTheme({
   palette: {

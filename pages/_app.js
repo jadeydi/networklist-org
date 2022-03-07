@@ -10,7 +10,7 @@ import {
   CONFIGURE,
 } from '../stores/constants'
 
-import '../styles/globals.css'
+import '../styles/globals.scss'
 
 import lightTheme from '../theme/light';
 import darkTheme from '../theme/dark';
