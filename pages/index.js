@@ -82,6 +82,28 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function Home({ changeTheme, theme }) {
   const { data, error } = useSWR('https://chainid.network/chains.json', fetcher)
+  if (data && !data.find(e => e.chainId === 83927)) {
+    data.push({
+      name: "Quorum Test",
+      chain: "QUM",
+      chainId: 83927,
+      rpc: [
+        "https://quorum.mixin.zone/",
+      ],
+      nativeCurrency: {
+        name: "Quorum",
+        symbol: "RUM",
+        decimals: 18,
+      },
+      explorers: [
+        {
+          name: "mvmscan",
+          url: "https://testnet.mvmscan.com/",
+          standard: "EIP3091"
+        }
+      ]
+    });
+  }
 
   const [ layout, setLayout ] = useState('grid')
   const [ search, setSearch ] = useState('')
