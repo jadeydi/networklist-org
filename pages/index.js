@@ -209,7 +209,7 @@ function Home({ changeTheme, theme }) {
       </main>
       <script
         async
-        src="https://www.googletagmanager.com/gtag/js?id=G-WDVXRXZRDN"
+        src="https://www.googletagmanager.com/gtag/js?id=UA-52707771-16"
       />
 
       <script
@@ -218,7 +218,7 @@ function Home({ changeTheme, theme }) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-WDVXRXZRDN', { page_path: window.location.pathname });
+              gtag('config', 'UA-52707771-16');
             `,
         }}
       />
