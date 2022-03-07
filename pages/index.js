@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import styles from '../styles/Home.module.scss'
 import { withTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import path from 'path'
 import {
-  Grid,
   Typography,
   Button,
   TextField,
   InputAdornment,
   Paper
 } from '@material-ui/core'
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Chain from '../components/chain'
 import Header from '../components/header'
 
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-// import GithubIcon from '@material-ui/icons/Github';
+import GithubIcon from '@material-ui/icons/Github';
 import useSWR from 'swr'
 
+import styles from '../styles/Home.module.scss'
 import classes from './index.module.scss'
 
 const searchTheme = createMuiTheme({
@@ -103,7 +100,6 @@ function Home({ changeTheme, theme }) {
     });
   }
 
-  const [ layout, setLayout ] = useState('grid')
   const [ search, setSearch ] = useState('')
   const router = useRouter()
   if (router.query.search) {
@@ -113,13 +109,6 @@ function Home({ changeTheme, theme }) {
 
   const onSearchChanged = (event) => {
     setSearch(event.target.value)
-  }
-
-  const handleLayoutChanged = (event, newVal) => {
-    if(newVal !== null) {
-      setLayout(newVal)
-      localStorage.setItem('yearn.finance-invest-layout', newVal ? newVal : '')
-    }
   }
 
   const addNetwork = () => {
@@ -135,6 +124,7 @@ function Home({ changeTheme, theme }) {
       <Head>
         <title>Chainlist</title>
         <link rel="icon" href="/favicon.png" />
+        <meta name="description" content="Helping users connect to EVM powered networks." />
       </Head>
 
       <main className={styles.main}>
@@ -168,7 +158,7 @@ function Home({ changeTheme, theme }) {
 
               <div className={ classes.socials }>
                 <a className={ `${classes.socialButton}` } href='https://github.com/antonnell/networklist-org.git' target='_blank' rel="noopener noreferrer" >
-                  {/* <GithubIcon fontSize="small" style={{ color: "#2F80ED" }}/> */}
+                  <GithubIcon fontSize="small" style={{ color: "#2F80ED" }}/>
                   <Typography variant='body1' className={ classes.sourceCode }>View Source Code</Typography>
                 </a>
                 <Typography variant='subtitle1' className={ classes.version }>Version 1.0.7</Typography>
