@@ -37,7 +37,10 @@
   padding-top: 24px;
   position: sticky;
   top: 0;
-  background: linear-gradient(rgba(243, 243, 243, 1) 90%, rgba(243, 243, 243, 0) 100%);
+  background: linear-gradient(
+    rgba(243, 243, 243, 1) 90%,
+    rgba(243, 243, 243, 0) 100%
+  );
   padding: 24px 80px 48px 80px;
   z-index: 1;
 }
@@ -51,7 +54,10 @@
   padding-top: 24px;
   position: sticky;
   top: 0;
-  background: linear-gradient(rgba(35, 37, 46, 1) 90%, rgba(35, 37, 46, 0) 100%);
+  background: linear-gradient(
+    rgba(35, 37, 46, 1) 90%,
+    rgba(35, 37, 46, 0) 100%
+  );
   padding: 24px 80px 48px 80px;
   z-index: 1;
 }
@@ -96,6 +102,15 @@
 .addNetworkButton {
   margin-top: 50px !important;
   width: fit-content;
+}
+
+.followButton {
+  margin-top: 50px !important;
+  width: fit-content;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: #2f80ed !important;
+  border: 1px solid #2f80ed !important;
 }
 
 .filterRow {

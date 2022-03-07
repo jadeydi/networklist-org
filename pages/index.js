@@ -19,7 +19,7 @@ import Header from '../components/header'
 
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-import GithubIcon from '@material-ui/icons/Github';
+// import GithubIcon from '@material-ui/icons/Github';
 import useSWR from 'swr'
 
 import classes from './index.module.scss'
@@ -123,7 +123,11 @@ function Home({ changeTheme, theme }) {
   }
 
   const addNetwork = () => {
-    window.open('https://github.com/ethereum-lists/chains', '_blank')
+    window.location.href = 'https://github.com/ethereum-lists/chains'
+  }
+
+  const followUs = () => {
+    window.location.href = 'https://twitter.com/ChainlistInfo'
   }
 
   return (
@@ -150,9 +154,21 @@ function Home({ changeTheme, theme }) {
               >
                 <Typography className={ classes.buttonLabel }>Add Your Network</Typography>
               </Button>
+
+              <Button
+                size='large'
+                color='secondary'
+                variant='contained'
+                className={ classes.followButton }
+                onClick={ followUs }
+                endIcon={<AddIcon />}
+              >
+                <Typography className={ classes.buttonLabel }>Follow @ChainlistInfo</Typography>
+              </Button>
+
               <div className={ classes.socials }>
                 <a className={ `${classes.socialButton}` } href='https://github.com/antonnell/networklist-org.git' target='_blank' rel="noopener noreferrer" >
-                  <GithubIcon fontSize="small" style={{ color: "#2F80ED" }}/>
+                  {/* <GithubIcon fontSize="small" style={{ color: "#2F80ED" }}/> */}
                   <Typography variant='body1' className={ classes.sourceCode }>View Source Code</Typography>
                 </a>
                 <Typography variant='subtitle1' className={ classes.version }>Version 1.0.7</Typography>
