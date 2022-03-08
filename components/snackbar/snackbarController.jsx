@@ -1,76 +1,32 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-
 import Snackbar from './snackbar.jsx'
-
-import {
-  ERROR,
-  TX_SUBMITTED,
-} from '../../stores/constants'
-
-import stores from "../../stores";
-const emitter = stores.emitter
 
 const styles = theme => ({
   root: {},
 });
 
-class SnackbarController extends Component {
+const SnackbarController = () => {
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    snackbarType: null,
+    snackbarMessage: null
+  });
 
-  constructor(props) {
-    super()
+  const app = useSelector((state) => state.app);
 
-    this.state = {
-      open: false,
-      snackbarType: null,
-      snackbarMessage: null
+  useEffect(() => {
+    if (app && app.error) {
+      const snackbarObj = { snackbarMessage: app.error.toString(), snackbarType: 'Error', open: true };
+      setSnackbar(snackbarObj);
     }
+  }, [app]);
+
+  if (snackbar.open) {
+    return <Snackbar type={ snackbar.snackbarType } message={ snackbar.snackbarMessage } open={ true } />;
   }
-
-  componentWillMount() {
-    emitter.on(ERROR, this.showError);
-    emitter.on(TX_SUBMITTED, this.showHash);
-  }
-
-  componentWillUnmount() {
-    emitter.removeListener(ERROR, this.showError);
-    emitter.removeListener(TX_SUBMITTED, this.showHash);
-  };
-
-  showError = (error) => {
-    const snackbarObj = { snackbarMessage: null, snackbarType: null, open: false }
-    this.setState(snackbarObj)
-
-    const that = this
-    setTimeout(() => {
-      const snackbarObj = { snackbarMessage: error.toString(), snackbarType: 'Error', open: true }
-      that.setState(snackbarObj)
-    })
-  }
-
-  showHash = (txHash) => {
-    const snackbarObj = { snackbarMessage: null, snackbarType: null, open: false }
-    this.setState(snackbarObj)
-
-    const that = this
-    setTimeout(() => {
-      const snackbarObj = { snackbarMessage: txHash, snackbarType: 'Hash', open: true }
-      that.setState(snackbarObj)
-    })
-  }
-
-  render() {
-    const {
-      snackbarType,
-      snackbarMessage,
-      open
-    } = this.state
-
-    if (open) {
-      return <Snackbar type={ snackbarType } message={ snackbarMessage } open={ true } />
-    }
-    return <div></div>
-  };
-}
+  return <div></div>;
+};
 
 export default withStyles(styles)(SnackbarController);

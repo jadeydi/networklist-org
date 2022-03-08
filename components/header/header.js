@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Switch, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import { withTheme } from '@material-ui/core/styles';
-
 import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import {
-  CONNECT_WALLET,
-  TRY_CONNECT_WALLET,
-  ACCOUNT_CONFIGURED
-} from '../../stores/constants'
-
-import stores from '../../stores'
+import { tryConnectWallet } from '../../stores/slices/accountSlice'
 import { formatAddress, getProvider } from '../../utils'
-
 import classes from './header.module.scss'
 
 const StyledSwitch = withStyles((theme) => ({
@@ -71,34 +61,10 @@ const StyledSwitch = withStyles((theme) => ({
   );
 });
 
-function Header(props) {
-
-  const [ account, setAccount ] = useState(null)
+const Header = (props) => {
+  const dispatch = useDispatch();
+  const account = useSelector((state) => state.account);
   const [ darkMode, setDarkMode ] = useState(props.theme.palette.type === 'dark' ? true : false);
-  const [ unlockOpen, setUnlockOpen ] = useState(false);
-
-  useEffect(() => {
-    const accountConfigure = () => {
-      const accountStore = stores.accountStore.getStore('account')
-      setAccount(accountStore)
-    }
-    const connectWallet = () => {
-      onAddressClicked()
-      stores.dispatcher.dispatch({ type: TRY_CONNECT_WALLET })
-    }
-
-    stores.emitter.on(ACCOUNT_CONFIGURED, accountConfigure)
-    stores.emitter.on(CONNECT_WALLET, connectWallet)
-
-
-    const accountStore = stores.accountStore.getStore('account')
-    setAccount(accountStore)
-
-    return () => {
-      stores.emitter.removeListener(ACCOUNT_CONFIGURED, accountConfigure)
-      stores.emitter.removeListener(CONNECT_WALLET, connectWallet)
-    }
-  }, [])
 
   const handleToggleChange = (event, val) => {
     setDarkMode(val)
@@ -106,7 +72,7 @@ function Header(props) {
   }
 
   const onAddressClicked = () => {
-    stores.dispatcher.dispatch({ type: TRY_CONNECT_WALLET })
+    dispatch(tryConnectWallet());
   }
 
   const renderProviderLogo = () => {
@@ -125,17 +91,6 @@ function Header(props) {
 
   return (
     <div className={ classes.headerContainer }>
-      { props.backClicked && (
-        <div className={ classes.backButton }>
-          <Button
-          color={ props.theme.palette.type === 'light' ? 'primary' : 'secondary' }
-          onClick={ props.backClicked }
-            disableElevation
-            >
-            <ArrowBackIcon fontSize={ 'large' } />
-          </Button>
-        </div>
-      )}
       <div className={ classes.themeSelectContainer }>
         <StyledSwitch
           icon={ <Brightness2Icon className={ classes.switchIcon }/> }
@@ -150,7 +105,7 @@ function Header(props) {
         variant='contained'
         color='secondary'
         onClick={ onAddressClicked }
-        >
+      >
         { account && account.address && <div className={ `${classes.accountIcon} ${classes[renderProviderLogo()]}` }></div>}
         <Typography variant='h5'>{ (account && account.address)? formatAddress(account.address) : 'Connect Wallet' }</Typography>
       </Button>

@@ -1,36 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Paper, Button, Tooltip } from '@material-ui/core'
-import Web3 from 'web3';
-
+import { getProvider } from '../../utils'
+import { tryConnectWallet } from '../../stores/slices/accountSlice'
+import { emitError } from '../../stores/slices/appSlice'
 import classes from './chain.module.scss'
 
-import { getProvider } from '../../utils'
-import stores from '../../stores/index.js'
-import {
-  ERROR,
-  TRY_CONNECT_WALLET,
-  ACCOUNT_CONFIGURED
-} from '../../stores/constants'
-
 export default function Chain({ chain }) {
-
-  const [ account, setAccount ] = useState(null)
-
-  useEffect(() => {
-    const accountConfigure = () => {
-      const accountStore = stores.accountStore.getStore('account')
-      setAccount(accountStore)
-    }
-
-    stores.emitter.on(ACCOUNT_CONFIGURED, accountConfigure)
-
-    const accountStore = stores.accountStore.getStore('account')
-    setAccount(accountStore)
-
-    return () => {
-      stores.emitter.removeListener(ACCOUNT_CONFIGURED, accountConfigure)
-    }
-  }, [])
+  const dispatch = useDispatch();
+  const account = useSelector((state) => state.account);
 
   const toHex = (num) => {
     return '0x'+num.toString(16)
@@ -38,7 +16,7 @@ export default function Chain({ chain }) {
 
   const addToNetwork = () => {
     if(!(account && account.address)) {
-      stores.dispatcher.dispatch({ type: TRY_CONNECT_WALLET })
+      dispatch(tryConnectWallet());
       return
     }
 
@@ -54,23 +32,21 @@ export default function Chain({ chain }) {
       blockExplorerUrls: [ ((chain.explorers && chain.explorers.length > 0 && chain.explorers[0].url) ? chain.explorers[0].url : chain.infoURL) ]
     }
 
-    window.web3.eth.getAccounts((error, accounts) => {
-      window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [params, accounts[0]],
-      })
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((error) => {
-        stores.emitter.emit(ERROR, error.message ? error.message : error)
-        console.log(error)
-      });
+    // TODO install metamask first
+    window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [params],
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch(emitError(error.message ? error.message : error));
     })
   }
 
   const renderProviderText = () => {
-
     if(account && account.address) {
       const providerTextList = {
         Metamask: 'Add to Metamask',

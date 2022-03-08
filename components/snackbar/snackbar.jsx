@@ -81,10 +81,6 @@ class MySnackbar extends Component {
     open: this.props.open,
   };
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
-
   handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

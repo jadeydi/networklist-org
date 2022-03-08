@@ -34,8 +34,7 @@ export function formatAddress(address, length='short') {
 }
 
 export function bnDec(decimals) {
-  return new BigNumber(10)
-          .pow(parseInt(decimals))
+  return new BigNumber(10).pow(parseInt(decimals))
 }
 
 export function getProvider() {
