@@ -37,13 +37,13 @@ export default function Chain({ chain }) {
       method: 'wallet_addEthereumChain',
       params: [params],
     })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      console.log(error);
-      dispatch(emitError(error.message ? error.message : error));
-    })
+      .then((result) => {
+        console.log('addEthereumChain result', result);
+      })
+      .catch((error) => {
+        console.log('addEthereumChain error', error);
+        dispatch(emitError(error.message ? error.message : error));
+      })
   }
 
   const renderProviderText = () => {

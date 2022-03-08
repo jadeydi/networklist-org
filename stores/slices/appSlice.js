@@ -7,7 +7,6 @@ const appSlice = createSlice({
   },
   reducers: {
     emitError: (state, action) => {
-      console.log('emitError', action);
       state.error = action.payload;
     },
   },

@@ -17,10 +17,15 @@ const SnackbarController = () => {
   const app = useSelector((state) => state.app);
 
   useEffect(() => {
+    let snackbarObj = {
+      open: false,
+      snackbarType: null,
+      snackbarMessage: null
+    };
     if (app && app.error) {
-      const snackbarObj = { snackbarMessage: app.error.toString(), snackbarType: 'Error', open: true };
-      setSnackbar(snackbarObj);
+      snackbarObj = { snackbarMessage: app.error.toString(), snackbarType: 'Error', open: true };
     }
+    setSnackbar(snackbarObj);
   }, [app]);
 
   if (snackbar.open) {

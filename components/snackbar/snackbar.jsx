@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import {
   Snackbar,
   IconButton,
@@ -6,7 +7,7 @@ import {
   Typography,
   SvgIcon
 } from '@material-ui/core';
-
+import { emitError } from '../../stores/slices/appSlice'
 import { colors } from "../../theme/coreTheme";
 
 const iconStyle = {
@@ -76,103 +77,99 @@ function InfoIcon(props) {
 }
 
 
-class MySnackbar extends Component {
-  state = {
-    open: this.props.open,
-  };
+const MySnackbar = (props) => {
+  const dispatch = useDispatch();
+  const [open] = useState(props.open)
 
-  handleClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    this.setState({ open: false });
+    dispatch(emitError(''));
   };
 
-  render() {
-    const { type, message } = this.props
+  const { message } = props
 
-    let icon = <SuccessIcon color={colors.blue} />
+  let icon = <SuccessIcon color={colors.blue} />
     let color = colors.blue
-    let messageType = ''
-    let actions = [
+  let messageType = ''
+  let actions = [
+    <IconButton
+      key="close"
+      aria-label="Close"
+      onClick={handleClose}
+    >
+      <CloseIcon />
+    </IconButton>,
+  ]
+
+  switch (props.type) {
+    case 'Error':
+      icon = <ErrorIcon color={colors.red} />
+      color = colors.red
+      messageType = "Error"
+      break;
+    case 'Success':
+      icon = <SuccessIcon color={colors.blue} />
+      color = colors.blue
+      messageType = "Success"
+      break;
+    case 'Warning':
+      icon = <WarningIcon color={colors.orange} />
+      color = colors.orange
+      messageType = "Warning"
+      break;
+    case 'Info':
+      icon = <InfoIcon color={colors.blue} />
+      color = colors.blue
+      messageType = "Info"
+      break;
+    case 'Hash':
+      icon = <SuccessIcon color={colors.blue} />
+      color = colors.blue
+      messageType = "Hash"
+
+      let snackbarMessage = 'https://etherscan.io/tx/'+message;
+      actions = [<Button variant="text" size="small" onClick={()=> window.open(snackbarMessage, "_blank")}>
+        View
+      </Button>,
       <IconButton
         key="close"
         aria-label="Close"
-        onClick={this.handleClose}
+        onClick={handleClose}
       >
         <CloseIcon />
       </IconButton>,
-    ]
-
-    switch (type) {
-      case 'Error':
-        icon = <ErrorIcon color={colors.red} />
-        color = colors.red
-        messageType = "Error"
-        break;
-      case 'Success':
-        icon = <SuccessIcon color={colors.blue} />
-        color = colors.blue
-        messageType = "Success"
-        break;
-      case 'Warning':
-        icon = <WarningIcon color={colors.orange} />
-        color = colors.orange
-        messageType = "Warning"
-        break;
-      case 'Info':
-        icon = <InfoIcon color={colors.blue} />
-        color = colors.blue
-        messageType = "Info"
-        break;
-      case 'Hash':
-        icon = <SuccessIcon color={colors.blue} />
-        color = colors.blue
-        messageType = "Hash"
-
-        let snackbarMessage = 'https://etherscan.io/tx/'+message;
-        actions = [<Button variant="text" size="small" onClick={()=> window.open(snackbarMessage, "_blank")}>
-          View
-        </Button>,
-          <IconButton
-            key="close"
-            aria-label="Close"
-            onClick={this.handleClose}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]
-        break;
-      default:
-        icon = <SuccessIcon color={colors.blue} />
-        color = colors.blue
-        messageType = "Success"
-        break;
-    }
-
-    return (
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={ this.state.open }
-        autoHideDuration={6000}
-        onClose={this.handleClose}
-        message={
-          <div style={{ padding: '12px', borderLeft: '5px solid '+color, borderRadius: '4px'}}>
-            {icon}
-            <div style={{ display: 'inline-block', verticalAlign: 'middle', maxWidth: '400px' }}>
-              <Typography variant='body1' style={{ fontSize: '12px', color: color }}>{ messageType }</Typography>
-              <Typography variant='body1' style={{ fontSize: '10px' }}>{ message }</Typography>
-            </div>
-          </div>
-        }
-        action={actions}
-      />
-    );
+      ]
+      break;
+    default:
+      icon = <SuccessIcon color={colors.blue} />
+      color = colors.blue
+      messageType = "Success"
+      break;
   }
+
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={ open }
+      autoHideDuration={12000}
+      onClose={handleClose}
+      message={
+        <div style={{ padding: '12px', borderLeft: '5px solid '+color, borderRadius: '4px'}}>
+          {icon}
+          <div style={{ display: 'inline-block', verticalAlign: 'middle', maxWidth: '400px' }}>
+            <Typography variant='body1' style={{ fontSize: '12px', color: color }}>{ messageType }</Typography>
+            <Typography variant='body1' style={{ fontSize: '10px' }}>{ message }</Typography>
+          </div>
+        </div>
+      }
+      action={actions}
+    />
+  );
 }
 
 export default MySnackbar;
