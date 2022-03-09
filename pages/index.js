@@ -13,6 +13,9 @@ import {
 import Chain from '../components/chain'
 import Header from '../components/header'
 
+import { useDispatch } from 'react-redux';
+import { tryConnectWallet } from '../stores/slices/accountSlice'
+
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import GithubIcon from '@material-ui/icons/Github';
@@ -75,7 +78,13 @@ const searchTheme = createMuiTheme({
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-function Home({ changeTheme, theme }) {
+const Home = ({ changeTheme, theme }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(tryConnectWallet());
+  }, []) ;
+
   const { data, error } = useSWR('https://chainid.network/chains.json', fetcher)
   if (data && !data.find(e => e.chainId === 83927)) {
     data.push({
