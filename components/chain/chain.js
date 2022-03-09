@@ -68,7 +68,7 @@ export default function Chain({ chain }) {
     <Paper elevation={ 1 } className={ classes.chainContainer } key={ chain.chainId }>
       <div className={ classes.chainNameContainer }>
         <img
-          src='/statics/connectors/icn-asd.svg'
+          src='/statics/chains/unknown-logo.png'
           onError={e => {
             e.target.onerror = null;
             e.target.src = "/statics/chains/unknown-logo.png";
