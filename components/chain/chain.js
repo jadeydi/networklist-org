@@ -33,18 +33,28 @@ export default function Chain({ chain }) {
     }
 
     // TODO install metamask first
-    window.ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [params],
-    })
-      .then((result) => {
-        console.log('addEthereumChain result', result);
-      })
-      .catch((error) => {
-        console.log('addEthereumChain error', error);
-        dispatch(emitError(error.message ? error.message : error));
-      })
-  }
+    ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: params.chainId }],
+    }).then((result) => {
+      console.log('wallet_switchEthereumChain', result);
+    }).catch((switchError) => {
+      if (switchError.code === 4902) {
+        window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [params],
+        })
+          .then((result) => {
+            console.log('addEthereumChain result', result);
+          })
+          .catch((error) => {
+            console.log('addEthereumChain error', error);
+            dispatch(emitError(error.message ? error.message : error));
+          });
+      }
+      console.log('switchError', switchError);
+    });
+  };
 
   const renderProviderText = () => {
     if(account && account.address) {
