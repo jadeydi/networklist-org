@@ -183,7 +183,7 @@ const Home = ({ changeTheme, theme }) => {
                       fullWidth
                       className={ classes.searchContainer }
                       variant="outlined"
-                      placeholder="ETH, Fantom, ..."
+                      placeholder="ETH, BSC, ..."
                       value={ search }
                       onChange={ onSearchChanged }
                       InputProps={{
