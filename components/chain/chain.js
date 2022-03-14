@@ -39,7 +39,7 @@ export default function Chain({ chain }) {
     }).then((result) => {
       console.log('wallet_switchEthereumChain', result);
     }).catch((switchError) => {
-      if (switchError.code === 4902) {
+      if (switchError.code === 4902 || switchError.code === -32603) {
         window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: [params],
