@@ -131,7 +131,7 @@ const Home = ({ changeTheme, theme }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Chainlist</title>
+        <title>Helping users connect to EVM powered networks - Chainlist.info</title>
         <link rel="icon" href="/favicon.png" />
         <meta name="description" content="Helping users connect to EVM powered networks." />
       </Head>
