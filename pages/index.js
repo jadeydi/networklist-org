@@ -78,6 +78,31 @@ const searchTheme = createMuiTheme({
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
+const chainsFilter = (chains, search) => {
+  search = search.trim().toLowerCase();
+  if (search.startsWith('=')) {
+    search = search.replaceAll('=', '').trim();
+    return chains.filter((chain) => {
+      return chain.chainId.toString() === search ||
+        chain.chain.toLowerCase() === search ||
+        chain.name.toLowerCase() === search ||
+        (chain.nativeCurrency ? chain.nativeCurrency.symbol : '').toLowerCase() === search;
+    });
+  };
+
+  return chains.filter((chain) => {
+    if (search === '') {
+      return true
+    } else {
+      //filter
+      return (chain.chain.toLowerCase().includes(search) ||
+        chain.chainId.toString().toLowerCase().includes(search) ||
+        chain.name.toLowerCase().includes(search) ||
+        (chain.nativeCurrency ? chain.nativeCurrency.symbol : '').toLowerCase().includes(search))
+    }
+  });
+}
+
 const Home = ({ changeTheme, theme }) => {
   const dispatch = useDispatch();
 
@@ -204,17 +229,7 @@ const Home = ({ changeTheme, theme }) => {
             </div>
             <div className={ classes.cardsContainer }>
               {
-                data && data.filter((chain) => {
-                  if (search === '') {
-                    return true
-                  } else {
-                    //filter
-                    return (chain.chain.toLowerCase().includes(search.toLowerCase()) ||
-                    chain.chainId.toString().toLowerCase().includes(search.toLowerCase()) ||
-                    chain.name.toLowerCase().includes(search.toLowerCase()) ||
-                    (chain.nativeCurrency ? chain.nativeCurrency.symbol : '').toLowerCase().includes(search.toLowerCase()))
-                  }
-                }).map((chain, idx) => {
+                data && chainsFilter(data, search).map((chain, idx) => {
                   return <Chain chain={ chain } key={ idx } />
                 })
               }
