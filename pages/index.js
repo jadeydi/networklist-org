@@ -117,7 +117,7 @@ const Home = ({ changeTheme, theme }) => {
       chain: "QUM",
       chainId: 83927,
       rpc: [
-        "https://quorum.mixin.zone/",
+        "https://quorum.test.mixin.zone/",
       ],
       nativeCurrency: {
         name: "Quorum",
