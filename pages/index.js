@@ -19,7 +19,9 @@ import { tryConnectWallet } from '../stores/slices/accountSlice'
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import GithubIcon from '@material-ui/icons/Github';
-import useSWR from 'swr'
+import useSWR from 'swr';
+
+import customChains from './chains';
 
 import styles from '../styles/Home.module.scss'
 import classes from './index.module.scss'
@@ -110,27 +112,12 @@ const Home = ({ changeTheme, theme }) => {
     dispatch(tryConnectWallet());
   }, []) ;
 
-  const { data, error } = useSWR('https://chainid.network/chains.json', fetcher)
-  if (data && !data.find(e => e.chainId === 83927)) {
-    data.push({
-      name: "Quorum Test",
-      chain: "QUM",
-      chainId: 83927,
-      rpc: [
-        "https://quorum-testnet.mixin.zone/",
-      ],
-      nativeCurrency: {
-        name: "Quorum",
-        symbol: "RUM",
-        decimals: 18,
-      },
-      explorers: [
-        {
-          name: "mvmscan",
-          url: "https://testnet.mvmscan.com/",
-          standard: "EIP3091"
-        }
-      ]
+  const { data, error } = useSWR('https://chainid.network/chains.json', fetcher);
+  if (data) {
+    customChains.forEach((chain) => {
+      if (!data.find(e => e.chainId === chain.chainId)) {
+        data.push(chain);
+      }
     });
   }
 
