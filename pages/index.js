@@ -21,7 +21,7 @@ import AddIcon from '@material-ui/icons/Add';
 import GithubIcon from '@material-ui/icons/Github';
 import useSWR from 'swr';
 
-import customChains from './chains';
+import customChains from '../utils/chains';
 
 import styles from '../styles/Home.module.scss'
 import classes from './index.module.scss'
