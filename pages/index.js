@@ -144,7 +144,7 @@ const Home = ({ changeTheme, theme }) => {
     <div className={styles.container}>
       <Head>
         <title>Helping users connect to EVM powered networks - Chainlist.info</title>
-        <link rel="icon" href="/favicon.jpeg" />
+        <link rel="icon" href="/favicon.png" />
         <meta name="description" content="Helping users connect to EVM powered networks." />
       </Head>
 
