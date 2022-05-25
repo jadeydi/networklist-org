@@ -4,7 +4,7 @@ import { Typography, Paper, Button, Tooltip } from '@material-ui/core'
 import { getProvider } from '../../utils'
 import { tryConnectWallet } from '../../stores/slices/accountSlice'
 import { emitError } from '../../stores/slices/appSlice'
-import classes from './chain.module.scss'
+import styles from './chain.module.scss'
 
 export default function Chain({ chain }) {
   const dispatch = useDispatch();
@@ -75,8 +75,8 @@ export default function Chain({ chain }) {
   }
 
   return (
-    <Paper elevation={ 1 } className={ classes.chainContainer } key={ chain.chainId }>
-      <div className={ classes.chainNameContainer }>
+    <Paper elevation={ 1 } className={ styles.container } key={ chain.chainId }>
+      <div className={ styles.name }>
         <img
           src='/statics/chains/unknown-logo.png'
           onError={e => {
@@ -85,27 +85,27 @@ export default function Chain({ chain }) {
           }}
           width={ 28 }
           height={ 28 }
-          className={ classes.avatar }
+          className={ styles.avatar }
         />
         <Tooltip title={ chain.name }>
-          <Typography variant='h3' className={ classes.name } noWrap>
+          <Typography variant='h3' noWrap>
             <a href={ chain.infoURL } target="_blank" rel="noreferrer">
               { chain.name }
             </a>
           </Typography>
         </Tooltip>
       </div>
-      <div className={ classes.chainInfoContainer }>
-        <div className={ classes.dataPoint }>
-          <Typography variant='subtitle1' color='textSecondary' className={ classes.dataPointHeader} >ChainID</Typography>
+      <div className={ styles.info }>
+        <div className={ styles.data }>
+          <Typography variant='subtitle1' color='textSecondary' className={ styles.header} >ChainID</Typography>
           <Typography variant='h5'>{ chain.chainId }</Typography>
         </div>
-        <div className={ classes.dataPoint }>
-          <Typography variant='subtitle1' color='textSecondary' className={ classes.dataPointHeader}>Currency</Typography>
+        <div className={ styles.data }>
+          <Typography variant='subtitle1' color='textSecondary' className={ styles.header}>Currency</Typography>
           <Typography variant='h5'>{ chain.nativeCurrency ? chain.nativeCurrency.symbol : 'none' }</Typography>
         </div>
       </div>
-      <div className={ classes.addButton }>
+      <div className={ styles.add }>
         <Button
           variant='outlined'
           color='primary'
