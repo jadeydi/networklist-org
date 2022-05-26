@@ -1,0 +1,110 @@
+.copyContainer {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: fit-content;
+  top: 0;
+}
+
+.copyCentered {
+  width: 425px;
+}
+
+.source {
+  margin-top: 50px;
+
+  .link {
+    display: flex;
+    align-items: center;
+  }
+  .code {
+    padding-left: 6px;
+  }
+  .version {
+    padding-left: 30px;
+  }
+}
+
+.chainListSpacing {
+  margin-bottom: 21px !important;
+  color: #2f80ed;
+}
+
+.helpingParagraph {
+  margin-bottom: 30px !important;
+  max-width: 320px;
+}
+
+.addNetworkButton {
+  margin-top: 50px !important;
+  width: fit-content;
+}
+
+.followButton {
+  margin-top: 30px !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: #2f80ed !important;
+  border: 1px solid #2f80ed !important;
+}
+
+.buttonLabel {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1200px) {
+  .copyContainer {
+    position: relative;
+    top: 0px;
+    min-height: 100vh;
+  }
+
+  .source {
+    position: relative;
+    margin-top: calc(2em + 10px);
+    bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .copyContainer,
+  .link,
+  .version,
+  .source {
+    max-width: 100vw;
+  }
+
+  .copyContainer {
+    text-align: center;
+  }
+
+  .helpingParagraph {
+    margin: 10px !important;
+    max-width: 100vw;
+  }
+
+  .subTitle {
+    padding: 0 10px;
+  }
+
+  .copyCentered {
+    max-width: 100vw;
+    position: static;
+    padding-bottom: 0px;
+  }
+
+  .source {
+    .link {
+      text-align: center;
+      justify-content: center;
+    }
+
+    .version {
+      padding-left: 0;
+    }
+  }
+}

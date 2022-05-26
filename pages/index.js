@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core'
 import Chain from '../components/chain'
 import Header from '../components/header'
+import Sidebar from '../components/sidebar'
 
 import { useDispatch } from 'react-redux';
 import { tryConnectWallet } from '../stores/slices/accountSlice'
@@ -132,14 +133,6 @@ const Home = ({ changeTheme, theme }) => {
     setSearch(event.target.value)
   }
 
-  const addNetwork = () => {
-    window.location.href = 'https://github.com/ethereum-lists/chains'
-  }
-
-  const followUs = () => {
-    window.location.href = 'https://twitter.com/ChainlistInfo'
-  }
-
   return (
     <div className={styles.container}>
       <Head>
@@ -150,42 +143,7 @@ const Home = ({ changeTheme, theme }) => {
 
       <main className={styles.main}>
         <div className={ theme.palette.type === 'dark' ? classes.containerDark : classes.container }>
-          <div className={ classes.copyContainer }>
-            <div className={ classes.copyCentered }>
-              <Typography variant='h1' className={ classes.chainListSpacing }><span className={ classes.helpingUnderline }>Chainlist</span></Typography>
-              <Typography variant='h2' className={ classes.helpingParagraph }>Helping users connect to EVM powered networks</Typography>
-              <Typography className={classes.subTitle}>Chainlist is a list of EVM networks. Users can use the information to connect their wallets and Web3 middleware providers to the appropriate Chain ID and Network ID to connect to the correct chain.</Typography>
-              <Button
-                size='large'
-                color='primary'
-                variant='contained'
-                className={ classes.addNetworkButton }
-                onClick={ addNetwork }
-                endIcon={<AddIcon />}
-              >
-                <Typography className={ classes.buttonLabel }>Add Your Network</Typography>
-              </Button>
-
-              <Button
-                size='large'
-                color='secondary'
-                variant='contained'
-                className={ classes.followButton }
-                onClick={ followUs }
-                endIcon={<AddIcon />}
-              >
-                <Typography className={ classes.buttonLabel }>Follow @ChainlistInfo</Typography>
-              </Button>
-
-              <div className={ classes.socials }>
-                <a className={ `${classes.socialButton}` } href='https://github.com/antonnell/networklist-org.git' target='_blank' rel="noopener noreferrer" >
-                  <GithubIcon fontSize="small" style={{ color: "#2F80ED" }}/>
-                  <Typography variant='body1' className={ classes.sourceCode }>View Source Code</Typography>
-                </a>
-                <Typography variant='subtitle1' className={ classes.version }>Version 1.0.7</Typography>
-              </div>
-            </div>
-          </div>
+          <Sidebar />
           <div className={ theme.palette.type === 'dark' ? classes.listContainerDark : classes.listContainer }>
             <div className={ theme.palette.type === 'dark' ? classes.headerContainerDark : classes.headerContainer }>
               <div className={ classes.filterRow }>
