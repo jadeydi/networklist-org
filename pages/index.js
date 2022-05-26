@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { withTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import path from 'path'
 import {
   Typography,
-  Button,
   TextField,
   InputAdornment,
   Paper
@@ -18,8 +16,6 @@ import { useDispatch } from 'react-redux';
 import { tryConnectWallet } from '../stores/slices/accountSlice'
 
 import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
-import GithubIcon from '@material-ui/icons/Github';
 import useSWR from 'swr';
 
 import customChains from '../utils/chains';
