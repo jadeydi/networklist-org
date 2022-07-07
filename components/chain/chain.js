@@ -26,7 +26,7 @@ export default function Chain({ chain }) {
       nativeCurrency: {
         name: chain.nativeCurrency.name,
         symbol: chain.nativeCurrency.symbol.substring(0, 6), // 2-6 characters long // TODO
-        decimals: chain.nativeCurrency.decimals,
+        decimals: chain.chainId === 73927 ? 18 :chain.nativeCurrency.decimals,
       },
       rpcUrls: chain.rpc,
       blockExplorerUrls: [ ((chain.explorers && chain.explorers.length > 0 && chain.explorers[0].url) ? chain.explorers[0].url : chain.infoURL) ]
